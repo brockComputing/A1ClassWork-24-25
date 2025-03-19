@@ -43,7 +43,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AWork.cs" />
+    <Compile Include="A-T1.cs" />
+    <Compile Include="A-T2.cs" />
+    <Compile Include="Original.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

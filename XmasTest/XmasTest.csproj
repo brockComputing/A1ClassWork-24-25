@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{619A85FE-C839-4036-A0CA-DE56534DC440}</ProjectGuid>
+    <ProjectGuid>{831837D4-DD5D-4B9E-8EC9-FDBAC0B08940}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>B_Work</RootNamespace>
-    <AssemblyName>B-Work</AssemblyName>
+    <RootNamespace>XmasTest</RootNamespace>
+    <AssemblyName>XmasTest</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,9 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="T2.cs" />
-    <Compile Include="T1.cs" />
-    <Compile Include="Original.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

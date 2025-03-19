@@ -43,7 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EWork.cs" />
+    <Compile Include="T3.cs" />
+    <Compile Include="T2.cs" />
+    <Compile Include="T1.cs" />
+    <Compile Include="Original.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
