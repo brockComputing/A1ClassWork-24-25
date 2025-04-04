@@ -290,7 +290,7 @@
 //            Console.WriteLine("D - Display image");
 //            Console.WriteLine("E - Edit image");
 //            Console.WriteLine("S - Save image");
-//            Console.WriteLine("C - Change image at location");
+//            Console.WriteLine("R - Resize image");
 //            Console.WriteLine("X - Exit program");
 //            Console.WriteLine();
 //        }
@@ -339,11 +339,9 @@
 //                {
 //                    programEnd = true;
 //                }
-//                else if (menuOption == 'C')
+//                else if (menuOption == 'R')
 //                {
-//                    DisplayImageMod(grid, header);
-//                    ChangeChar(grid);
-//                    DisplayImage(grid, header);
+//                    ResizeImage(grid, header);
 //                }
 //                else
 //                {
@@ -359,37 +357,29 @@
 //            }
 //        }
 
-//        private static void DisplayImageMod(string[,] grid, FileHeader header)
+//        private static void ResizeImage(string[,] grid, FileHeader header)
 //        {
-//            // show the row and column headers
-//            Console.WriteLine(" |01234");
-//            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+//            int scale = 2;
+//            string[,] newGrid = new string[header.Height * scale, header.Width * scale];
+//            for (int thisRow = 0; thisRow < header.Height * scale; thisRow++)
 //            {
-//                Console.Write(thisRow +"|");
-//                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+//                for (int thisColumn = 0; thisColumn < header.Width * scale; thisColumn++)
 //                {
-//                    Console.Write(grid[thisRow, thisColumn]);
+//                    newGrid[thisRow, thisColumn] = grid[thisRow / 2, thisColumn / 2];
+//                }
+//                Console.WriteLine();
+//            }
+//            // display newGrid
+//            for (int thisRow = 0; thisRow < header.Height * scale; thisRow++)
+//            {
+//                for (int thisColumn = 0; thisColumn < header.Width * scale; thisColumn++)
+//                {
+//                    Console.Write(newGrid[thisRow, thisColumn]);
 //                }
 //                Console.WriteLine();
 //            }
 //        }
 
-//        private static void ChangeChar(string[,] grid)
-//        {
-//            int row = 0, col = 0;
-//            string newChar = "";
-//            Console.WriteLine("Enter the new char");
-//            newChar = Console.ReadLine();
-//            Console.WriteLine("Enter the row ");
-//            row = Convert.ToInt32(Console.ReadLine());
-//            Console.WriteLine("Enter the column");
-//            col = Convert.ToInt32(Console.ReadLine());
-//            grid[row, col] = newChar;
-
-
-//        }
-
-        
 //        static void Main(string[] args)
 //        {
 //            Graphics();

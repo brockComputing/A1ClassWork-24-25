@@ -67,7 +67,7 @@
 //            if (answer == "N" || answer == "n")
 //            {
 //                Console.WriteLine("Enter a new filename: ");
-//                fileName = Console.ReadLine();
+//                fileName = GetFileName();
 //            }
 //            else
 //            {
@@ -257,7 +257,7 @@
 //        {
 //            string fileName;
 //            Console.Write("Enter filename: ");
-//            fileName = Console.ReadLine();
+//            fileName = GetFileName();
 //            StreamWriter fileOut = new StreamWriter(fileName + ".txt");
 //            fileOut.WriteLine(header.Title + "," + header.Width + "," + header.Height + "," + "A");
 //            for (int row = 0; row < header.Height; row++)
@@ -268,6 +268,21 @@
 //                }
 //            }
 //            fileOut.Close();
+//        }
+
+//        private static string GetFileName()
+//        {
+//            string fileName = "";
+//            while (fileName =="")
+//            {
+//                fileName = Console.ReadLine();
+//                if (fileName == "")
+//                {
+//                    Console.WriteLine("you can't enter nothing");
+//                    Console.WriteLine("Enter again");
+//                }
+//            }
+//            return fileName;
 //        }
 
 //        private static void ClearGrid(string[,] grid)

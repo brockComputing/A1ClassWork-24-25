@@ -45,6 +45,12 @@
   <ItemGroup>
     <Compile Include="A-T1.cs" />
     <Compile Include="A-T2.cs" />
+    <Compile Include="A-T3.cs" />
+    <Compile Include="A-T4.cs" />
+    <Compile Include="T8.cs" />
+    <Compile Include="T7.cs" />
+    <Compile Include="T6-SkipForNow.cs" />
+    <Compile Include="T5.cs" />
     <Compile Include="Original.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

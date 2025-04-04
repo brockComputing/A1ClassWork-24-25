@@ -290,7 +290,7 @@
 //            Console.WriteLine("D - Display image");
 //            Console.WriteLine("E - Edit image");
 //            Console.WriteLine("S - Save image");
-//            Console.WriteLine("C - Change image at location");
+//            Console.WriteLine("C - Convert File");
 //            Console.WriteLine("X - Exit program");
 //            Console.WriteLine();
 //        }
@@ -335,15 +335,13 @@
 //                {
 //                    SaveImage(grid, header);
 //                }
+//                else if (menuOption == 'C')
+//                {
+//                    ConvertFileFormat();
+//                }
 //                else if (menuOption == 'X')
 //                {
 //                    programEnd = true;
-//                }
-//                else if (menuOption == 'C')
-//                {
-//                    DisplayImageMod(grid, header);
-//                    ChangeChar(grid);
-//                    DisplayImage(grid, header);
 //                }
 //                else
 //                {
@@ -359,37 +357,32 @@
 //            }
 //        }
 
-//        private static void DisplayImageMod(string[,] grid, FileHeader header)
+//        private static void ConvertFileFormat()
 //        {
-//            // show the row and column headers
-//            Console.WriteLine(" |01234");
-//            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+//            string filename = "";
+//            Console.WriteLine("enter a file name");
+//            filename = Console.ReadLine() + ".txt";
+//            StreamReader reader = new StreamReader(filename);
+//            string firstLine = reader.ReadLine(); // reads first line from the file
+//            string secondLine = "";
+//            int width = 0, height = 0;
+//            string currentLine = "";
+//            while (! reader.EndOfStream)
 //            {
-//                Console.Write(thisRow +"|");
-//                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-//                {
-//                    Console.Write(grid[thisRow, thisColumn]);
-//                }
-//                Console.WriteLine();
+//                currentLine = reader.ReadLine();
+//                width = currentLine.Length; // find the length of current line
+//                secondLine = secondLine + currentLine;
+//                height++; 
 //            }
+//            reader.Close();
+//            StreamWriter writer = new StreamWriter("Conv" + filename );
+//            firstLine = $"{firstLine},{width},{height},A";
+//            writer.WriteLine(firstLine);
+//            // write the second line
+//            writer.WriteLine(secondLine);
+//            writer.Close();
 //        }
 
-//        private static void ChangeChar(string[,] grid)
-//        {
-//            int row = 0, col = 0;
-//            string newChar = "";
-//            Console.WriteLine("Enter the new char");
-//            newChar = Console.ReadLine();
-//            Console.WriteLine("Enter the row ");
-//            row = Convert.ToInt32(Console.ReadLine());
-//            Console.WriteLine("Enter the column");
-//            col = Convert.ToInt32(Console.ReadLine());
-//            grid[row, col] = newChar;
-
-
-//        }
-
-        
 //        static void Main(string[] args)
 //        {
 //            Graphics();

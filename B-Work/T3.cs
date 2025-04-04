@@ -290,7 +290,7 @@
 //            Console.WriteLine("D - Display image");
 //            Console.WriteLine("E - Edit image");
 //            Console.WriteLine("S - Save image");
-//            Console.WriteLine("C - Change image at location");
+//            Console.WriteLine("C - Change a char at a loction");
 //            Console.WriteLine("X - Exit program");
 //            Console.WriteLine();
 //        }
@@ -335,15 +335,15 @@
 //                {
 //                    SaveImage(grid, header);
 //                }
-//                else if (menuOption == 'X')
-//                {
-//                    programEnd = true;
-//                }
 //                else if (menuOption == 'C')
 //                {
 //                    DisplayImageMod(grid, header);
 //                    ChangeChar(grid);
-//                    DisplayImage(grid, header);
+//                    DisplayImage(grid, header); // so can see the changes
+//                }
+//                else if (menuOption == 'X')
+//                {
+//                    programEnd = true;
 //                }
 //                else
 //                {
@@ -359,13 +359,33 @@
 //            }
 //        }
 
+//        private static void ChangeChar(string[,] grid)
+//        {
+//            int row = 0, col = 0;
+//            Console.WriteLine("enter the row number");
+//            row = Convert.ToInt32(Console.ReadLine());
+//            Console.WriteLine("enter the col number");
+//            col = Convert.ToInt32(Console.ReadLine());
+//            string newChar = Console.ReadLine();
+//            grid[row, col] = newChar;
+//        }
+
 //        private static void DisplayImageMod(string[,] grid, FileHeader header)
 //        {
-//            // show the row and column headers
-//            Console.WriteLine(" |01234");
+//            // display col numbers
+//            //Console.WriteLine("  0123456789");
+//            //Console.WriteLine("  ----------");
+//            Console.Write("  ");
+//            for (int i = 0; i < header.Width; i++)
+//            {
+//                Console.Write(i % 10);
+//            }
+//            Console.WriteLine();
+//            int counter = 0;
 //            for (int thisRow = 0; thisRow < header.Height; thisRow++)
 //            {
-//                Console.Write(thisRow +"|");
+//                Console.Write(counter + "|");
+//                counter++;
 //                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
 //                {
 //                    Console.Write(grid[thisRow, thisColumn]);
@@ -374,22 +394,6 @@
 //            }
 //        }
 
-//        private static void ChangeChar(string[,] grid)
-//        {
-//            int row = 0, col = 0;
-//            string newChar = "";
-//            Console.WriteLine("Enter the new char");
-//            newChar = Console.ReadLine();
-//            Console.WriteLine("Enter the row ");
-//            row = Convert.ToInt32(Console.ReadLine());
-//            Console.WriteLine("Enter the column");
-//            col = Convert.ToInt32(Console.ReadLine());
-//            grid[row, col] = newChar;
-
-
-//        }
-
-        
 //        static void Main(string[] args)
 //        {
 //            Graphics();
