@@ -368,7 +368,7 @@ namespace AQA_Graphics_CS
         }
 
         private static void RotateImage(string[,] grid, FileHeader header)
-        { // only works if image is a s
+        { 
             string[,] gridNew = new string[header.Width, header.Height]; // in reverse
             for (int thisRow = 0; thisRow < header.Height; thisRow++)
             {
@@ -378,6 +378,9 @@ namespace AQA_Graphics_CS
                     gridNew[thisColumn, header.Height - 1 - thisRow] = grid[thisRow, thisColumn];
                 }
             }
+            int temp = header.Width;
+            header.Width = header.Height;
+            header.Height = temp;
             DisplayImage(gridNew, header); 
         }
 
