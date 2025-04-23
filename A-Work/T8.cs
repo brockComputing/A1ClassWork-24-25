@@ -244,9 +244,20 @@ namespace AQA_Graphics_CS
                     // where ask the user if they want to brighten or darken.
                     if (header.FileType == "G")
                     {
-                        while (true)
+                        string choice = "D";
+                        while (choice == "D" || choice == "L")
                         {
-
+                            Console.WriteLine("would you like to darken or lighten the image(D/L");
+                            choice = Console.ReadLine();
+                            if (choice == "L")
+                            {
+                                BrightenOrDarken(greyScaleList, -20, grid, header);
+                            }
+                            else if (choice == "D")
+                            {
+                                BrightenOrDarken(greyScaleList, 20, grid, header);
+                            }
+                            DisplayImage(grid, header);
                         }
                     }
                 }
@@ -260,6 +271,24 @@ namespace AQA_Graphics_CS
                 else
                 {
                     DisplayError("Unknown error");
+                }
+            }
+        }
+
+        private static void BrightenOrDarken(List<int> greyScaleList, int amount, string[,] grid, FileHeader header)
+        {
+            // update greyscaleList
+            for (int i = 0; i < greyScaleList.Count; i++)
+            {
+                greyScaleList[i] = greyScaleList[i] + amount;
+            }
+            // update grid with the new chars
+            int count = 0;
+            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+            {
+                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+                {
+                    grid[thisRow, thisColumn] = ConvertChar(????)
                 }
             }
         }

@@ -1,7 +1,6 @@
 ﻿
 
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace AQA_Graphics_CS
@@ -160,7 +159,7 @@ namespace AQA_Graphics_CS
             return asciiChar;
         }
 
-        private static void LoadGreyScaleImage(StreamReader fileIn, string[,] grid, FileHeader header, List<int> greyScaleList)
+        private static void LoadGreyScaleImage(StreamReader fileIn, string[,] grid, FileHeader header)
         {
             string nextPixel;
             int pixelValue;
@@ -172,7 +171,6 @@ namespace AQA_Graphics_CS
                     {
                         nextPixel = fileIn.ReadLine();
                         pixelValue = Convert.ToInt32(nextPixel);
-                        greyScaleList.Add(pixelValue);
                         grid[row, column] = ConvertChar(pixelValue);
                     }
                 }
@@ -211,7 +209,6 @@ namespace AQA_Graphics_CS
             string fileName, headerLine;
             Console.Write("Enter filename to load: ");
             fileName = Console.ReadLine();
-            List<int> greyScaleList = new List<int>(); // 
             try
             {
                 StreamReader fileIn = new StreamReader(fileName + ".txt");
@@ -230,7 +227,7 @@ namespace AQA_Graphics_CS
                 }
                 else if (header.FileType == "G")
                 {
-                    LoadGreyScaleImage(fileIn, grid, header, greyScaleList);
+                    LoadGreyScaleImage(fileIn, grid, header);
                     fileTypeOK = true;
                 }
                 fileIn.Close();
@@ -241,24 +238,6 @@ namespace AQA_Graphics_CS
                 else
                 {
                     DisplayImage(grid, header);
-                    if (header.FileType == "G")
-                    {
-                        string choice = "D";
-                        while (choice == "D" || choice == "L")
-                        {
-                            Console.WriteLine("Enter D for Darken or L for Lighten");
-                            choice = Console.ReadLine();
-                            if (choice == "D")
-                            {
-                                BrightenOrDarken(greyScaleList, 20, grid, header);
-                            }
-                            else if (choice == "L")
-                            {
-                                BrightenOrDarken(greyScaleList, -20, grid, header);
-                            }
-                            DisplayImage(grid, header);
-                        }
-                    }
                 }
             }
             catch (Exception)
@@ -270,26 +249,6 @@ namespace AQA_Graphics_CS
                 else
                 {
                     DisplayError("Unknown error");
-                }
-            }
-        }
-
-        private static void BrightenOrDarken(List<int> greyScaleList, int amount, string[,] grid, FileHeader header)
-        {
-            // add amount to every element in greyScaleList
-            for (int i = 0; i < greyScaleList.Count ; i++)
-            {
-                greyScaleList[i] = greyScaleList[i] + amount;
-            }
-            // look at LoagGreyScaleImage for inspiration (note we no longer read the file)
-            // update grid with new chars using greyscale list
-            int counter = 0;
-            for (int thisRow = 0; thisRow < header.Height; thisRow++)
-            {
-                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-                {
-                    grid[thisRow, thisColumn] = ConvertChar(greyScaleList[counter]);
-                    counter++;
                 }
             }
         }
@@ -331,6 +290,9 @@ namespace AQA_Graphics_CS
             Console.WriteLine("D - Display image");
             Console.WriteLine("E - Edit image");
             Console.WriteLine("S - Save image");
+            Console.WriteLine("R - Reflect image horizontally");
+            Console.WriteLine("F - Flip image vertically");
+            Console.WriteLine("9 - Rotate 90 degrees");
             Console.WriteLine("X - Exit program");
             Console.WriteLine();
         }
@@ -371,6 +333,18 @@ namespace AQA_Graphics_CS
                 {
                     EditImage(grid, header);
                 }
+                else if (menuOption == 'R')
+                {
+                    ReflectImage(grid, header);
+                }
+                else if (menuOption == 'F')
+                {
+                    FlipImage(grid, header);
+                }
+                else if (menuOption == '9')
+                {
+                    RotateImage(grid, header);
+                }
                 else if (menuOption == 'S')
                 {
                     SaveImage(grid, header);
@@ -393,6 +367,96 @@ namespace AQA_Graphics_CS
             }
         }
 
+        private static void RotateImage(string[,] grid, FileHeader header)
+        { // only works if image is a s
+            string[,] gridNew = new string[header.Width, header.Height]; // in reverse
+            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+            {
+               
+                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+                {
+                    gridNew[thisColumn, header.Height - 1 - thisRow] = grid[thisRow, thisColumn];
+                }
+            }
+            DisplayImage(gridNew, header); 
+        }
+
+        private static void FlipImage(string[,] grid, FileHeader header)
+        {
+            // flips image and saves it back to grid
+            for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+            {
+                
+                string col = "";
+                for (int thisRow = 0; thisRow < header.Height; thisRow++)
+                {
+                    col = grid[thisRow, thisColumn] + col;
+                }
+                // save back to grid the col
+                int counter = 0;
+                for (int thisRow = 0; thisRow < header.Height; thisRow++)
+                {
+                    grid[thisRow, thisColumn] = col[counter].ToString();
+                    counter++;
+                }
+            }
+            DisplayImage(grid, header);
+        }
+
+        private static void ReflectImage(string[,] grid, FileHeader header)
+        {
+            // reflect the image horizontally this does not store in grid
+            string row = "";
+            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+            {
+                row = "";
+                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+                {
+                    row = grid[thisRow, thisColumn] + row;
+                }
+                Console.WriteLine(row);
+            }
+        }
+
+        //private static void ReflectImage(string[,] grid, FileHeader header)
+        //{
+        //    // reflect the image horizontally this stores in grid uses another array
+        //    string[,] gridNew = new string[MAX_HEIGHT, MAX_WIDTH];
+        //    for (int thisRow = 0; thisRow < header.Height; thisRow++)
+        //    {
+        //        int currentColNumber = header.Width - 1;
+        //        for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+        //        {
+        //            gridNew[thisRow , currentColNumber] = grid[thisRow , thisColumn];
+        //            currentColNumber--;
+        //        }
+        //        // now write back to grid
+        //    }
+        //    DisplayImage(gridNew, header);
+        //}
+
+
+        //private static void ReflectImage(string[,] grid, FileHeader header)
+        //{
+        //    // reflect the image horizontally this stores in grid uses a string to store
+        //    string row = "";
+        //    for (int thisRow = 0; thisRow < header.Height; thisRow++)
+        //    {
+        //        row = "";
+        //        for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+        //        {
+        //            row = grid[thisRow, thisColumn] + row;
+        //        }
+        //        // now write back to grid
+        //        int counter = 0;
+        //        for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+        //        {
+        //            grid[thisRow, thisColumn] = row[counter].ToString();
+        //            counter++;
+        //        }
+        //    }
+        //    DisplayImage(grid, header);
+        //}
         static void Main(string[] args)
         {
             Graphics();

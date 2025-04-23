@@ -2,6 +2,7 @@
 
 //using System;
 //using System.IO;
+//using System.Collections.Generic;
 
 //namespace AQA_Graphics_CS
 //{
@@ -159,7 +160,7 @@
 //            return asciiChar;
 //        }
 
-//        private static void LoadGreyScaleImage(StreamReader fileIn, string[,] grid, FileHeader header)
+//        private static void LoadGreyScaleImage(StreamReader fileIn, string[,] grid, FileHeader header, List<int> greyscaleList)
 //        {
 //            string nextPixel;
 //            int pixelValue;
@@ -171,6 +172,7 @@
 //                    {
 //                        nextPixel = fileIn.ReadLine();
 //                        pixelValue = Convert.ToInt32(nextPixel);
+//                        greyscaleList.Add(pixelValue);
 //                        grid[row, column] = ConvertChar(pixelValue);
 //                    }
 //                }
@@ -207,6 +209,7 @@
 //            bool fileFound = false;
 //            bool fileTypeOK = false;
 //            string fileName, headerLine;
+//            List<int> greyscaleList = new List<int>();
 //            Console.Write("Enter filename to load: ");
 //            fileName = Console.ReadLine();
 //            try
@@ -227,7 +230,7 @@
 //                }
 //                else if (header.FileType == "G")
 //                {
-//                    LoadGreyScaleImage(fileIn, grid, header);
+//                    LoadGreyScaleImage(fileIn, grid, header, greyscaleList);
 //                    fileTypeOK = true;
 //                }
 //                fileIn.Close();
@@ -238,6 +241,24 @@
 //                else
 //                {
 //                    DisplayImage(grid, header);
+//                    if (header.FileType == "G") // only if it is a greyscale
+//                    {
+//                        string answer = "D";
+//                        while (answer == "D" || answer == "L")
+//                        {
+//                            Console.WriteLine("Enter D for Darken or L for Lighten");
+//                            answer = Console.ReadLine();
+//                            if (answer == "D")
+//                            {
+//                                BrightenOrDarken(greyscaleList, 20, grid, header);
+//                            }
+//                            else if (answer == "L")
+//                            {
+//                                BrightenOrDarken(greyscaleList, -20, grid, header);
+//                            }
+//                            DisplayImage(grid, header);
+//                        }
+//                    }
 //                }
 //            }
 //            catch (Exception)
@@ -251,6 +272,28 @@
 //                    DisplayError("Unknown error");
 //                }
 //            }
+//        }
+
+//        private static void BrightenOrDarken(List<int> greyscaleList, int amount, string[,] grid, FileHeader header)
+//        {
+//            // add amount to every item in greyscale list
+//            for (int i = 0; i < greyscaleList.Count; i++)
+//            {
+//                greyscaleList[i] = greyscaleList[i] + amount;
+//            }
+
+//            // update grid with new chars based on the values in greyscale list.
+//            int count = 0;
+//            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+//            {
+//                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
+//                {
+//                    grid[thisRow, thisColumn] = ConvertChar(greyscaleList[count]);
+//                    count++;
+//                }
+//            }
+
+
 //        }
 
 //        private static void SaveFile(string[,] grid, FileHeader header)
@@ -290,7 +333,6 @@
 //            Console.WriteLine("D - Display image");
 //            Console.WriteLine("E - Edit image");
 //            Console.WriteLine("S - Save image");
-//            Console.WriteLine("R - Rescale image");
 //            Console.WriteLine("X - Exit program");
 //            Console.WriteLine();
 //        }
@@ -335,10 +377,6 @@
 //                {
 //                    SaveImage(grid, header);
 //                }
-//                else if (menuOption == 'R')
-//                {
-//                    RescaleImage(grid, header);
-//                }
 //                else if (menuOption == 'X')
 //                {
 //                    programEnd = true;
@@ -355,31 +393,6 @@
 //            {
 //                SaveFile(grid, header);
 //            }
-//        }
-
-//        private static void RescaleImage(string[,] grid, FileHeader header)
-//        {
-//            int scale = 2;
-//            string[,] newGrid = new string[header.Height * scale, header.Width * scale];
-
-//            for (int thisRow = 0; thisRow < header.Height * scale; thisRow++)
-//            {
-//                for (int thisColumn = 0; thisColumn < header.Width * scale; thisColumn++)
-//                {
-//                    newGrid[thisRow, thisColumn] = grid[thisRow / 2,thisColumn / 2];
-//                }  
-//            }
-//            // display newGrid
-//            for (int thisRow = 0; thisRow < header.Height * scale; thisRow++)
-//            {
-//                for (int thisColumn = 0; thisColumn < header.Width * scale; thisColumn++)
-//                {
-//                    Console.Write(newGrid[thisRow, thisColumn]);
-//                }
-//                Console.WriteLine();
-//            }
-
-
 //        }
 
 //        static void Main(string[] args)
