@@ -359,9 +359,16 @@ namespace AQA_Graphics_CS
 
         private static void ReflectImage(string[,] grid, FileHeader header)
         {
-           // use a string to store the row in reverse
-           // then output the string
-           // grid does not change.
+            // second loop is reversed based on Display image
+            for (int thisRow = 0; thisRow < header.Height; thisRow++)
+            {
+                for (int thisColumn = header.Width - 1; thisColumn >= 0; thisColumn--)
+                {
+                    Console.Write(grid[thisRow, thisColumn]);
+                }
+                Console.WriteLine();
+            }
+
         }
 
         static void Main(string[] args)
