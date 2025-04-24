@@ -290,9 +290,7 @@ namespace AQA_Graphics_CS
             Console.WriteLine("D - Display image");
             Console.WriteLine("E - Edit image");
             Console.WriteLine("S - Save image");
-            Console.WriteLine("R - Reflect image horizontally");
-            Console.WriteLine("F - Flip image vertically");
-            Console.WriteLine("9 - Rotate 90 degrees");
+            Console.WriteLine("R - Reflect Image");
             Console.WriteLine("X - Exit program");
             Console.WriteLine();
         }
@@ -333,21 +331,13 @@ namespace AQA_Graphics_CS
                 {
                     EditImage(grid, header);
                 }
-                else if (menuOption == 'R')
-                {
-                    ReflectImage(grid, header);
-                }
-                else if (menuOption == 'F')
-                {
-                    FlipImage(grid, header);
-                }
-                else if (menuOption == '9')
-                {
-                    RotateImage(grid, header);
-                }
                 else if (menuOption == 'S')
                 {
                     SaveImage(grid, header);
+                }
+                else if (menuOption == 'S')
+                {
+                    ReflectImage(grid, header);
                 }
                 else if (menuOption == 'X')
                 {
@@ -367,113 +357,13 @@ namespace AQA_Graphics_CS
             }
         }
 
-        private static void RotateImage(string[,] grid, FileHeader header)
-        { 
-            string[,] gridNew = new string[header.Width, header.Height]; // in reverse
-            for (int thisRow = 0; thisRow < header.Height; thisRow++)
-            {
-               
-                for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-                {
-                    gridNew[thisColumn, header.Height - 1 - thisRow] = grid[thisRow, thisColumn];
-                }
-            }
-            int temp = header.Width;
-            header.Width = header.Height;
-            header.Height = temp;
-            DisplayImage(gridNew, header); 
-        }
-      
-        private static void FlipImage(string[,] grid, FileHeader header)
-        {
-            // flips image and saves it back to grid
-            for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-            {
-
-                string col = "";
-                for (int thisRow = 0; thisRow < header.Height; thisRow++)
-                {
-                    col = grid[thisRow, thisColumn] + col;
-                }
-                // save back to grid the col
-                int counter = 0;
-                for (int thisRow = 0; thisRow < header.Height; thisRow++)
-                {
-                    grid[thisRow, thisColumn] = col[counter].ToString();
-                    counter++;
-                }
-            }
-            DisplayImage(grid, header);
-        }
-
         private static void ReflectImage(string[,] grid, FileHeader header)
         {
-            // second loop is reversed
-            for (int thisRow = 0; thisRow < header.Height; thisRow++)
-            {
-                for (int thisColumn = header.Width - 1; thisColumn > 0; thisColumn--)
-                {
-                    Console.Write(grid[thisRow, thisColumn]);
-                }
-                Console.WriteLine();
-            }
-
+           // use a string to store the row in reverse
+           // then output the string
+           // grid does not change.
         }
 
-        //private static void ReflectImage(string[,] grid, FileHeader header)
-        //{
-        //    // reflect the image horizontally this does not store in grid
-        //    string row = "";
-        //    for (int thisRow = 0; thisRow < header.Height; thisRow++)
-        //    {
-        //        row = "";
-        //        for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-        //        {
-        //            row = grid[thisRow, thisColumn] + row;
-        //        }
-        //        Console.WriteLine(row);
-        //    }
-        //}
-
-        //private static void ReflectImage(string[,] grid, FileHeader header)
-        //{
-        //    // reflect the image horizontally this stores in grid uses another array
-        //    string[,] gridNew = new string[MAX_HEIGHT, MAX_WIDTH];
-        //    for (int thisRow = 0; thisRow < header.Height; thisRow++)
-        //    {
-        //        int currentColNumber = header.Width - 1;
-        //        for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-        //        {
-        //            gridNew[thisRow , currentColNumber] = grid[thisRow , thisColumn];
-        //            currentColNumber--;
-        //        }
-        //        // now write back to grid
-        //    }
-        //    DisplayImage(gridNew, header);
-        //}
-
-
-        //private static void ReflectImage(string[,] grid, FileHeader header)
-        //{
-        //    // reflect the image horizontally this stores in grid uses a string to store
-        //    string row = "";
-        //    for (int thisRow = 0; thisRow < header.Height; thisRow++)
-        //    {
-        //        row = "";
-        //        for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-        //        {
-        //            row = grid[thisRow, thisColumn] + row;
-        //        }
-        //        // now write back to grid
-        //        int counter = 0;
-        //        for (int thisColumn = 0; thisColumn < header.Width; thisColumn++)
-        //        {
-        //            grid[thisRow, thisColumn] = row[counter].ToString();
-        //            counter++;
-        //        }
-        //    }
-        //    DisplayImage(grid, header);
-        //}
         static void Main(string[] args)
         {
             Graphics();

@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="T9.cs" />
     <Compile Include="T8.cs" />
     <Compile Include="T7.cs" />
     <Compile Include="T6-DoLater.cs" />
